@@ -1,0 +1,6 @@
+.nav-section-selected{
+    border-left: 6px solid #4194F9;
+    background: #E8F3FD;
+    font-weight: 800;
+ padding-left: calc(var(--lwc-spacingMedium,1rem) - 6px); 
+}

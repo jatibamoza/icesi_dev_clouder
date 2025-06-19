@@ -1,0 +1,65 @@
+.login-container {
+    text-align: center;
+    max-width: 400px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px;
+    top: 60%;
+    transform: translateY(-60%);
+    z-index: 1;
+}
+
+.input-icon-right {
+    position: absolute;
+    top: 90%;
+    transform: translateY(-60%);
+    z-index: 1;
+}
+
+.input-custom{
+    height: 50px;
+    border-radius: 0;
+    margin-top: 10px
+}
+
+lightning-input {
+    padding-left: 30px; /* Space for icon */
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 15px;
+    display: grid;
+    font-size: larger;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.links a {
+    color: var(--lwc-colorTextInverse,rgb(255, 255, 255));
+}
+
+.errorMessageContainer{
+    text-align: center;
+    color: var(--lwc-colorTextError,rgb(234, 0, 30));
+}
+
+.padding-right-15{
+    padding-right: 15px;
+}
+
+.bg-light{
+    background-color: #ffffff91;
+    backdrop-filter: blur(10px);
+}

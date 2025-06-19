@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Community Login Federation ID</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="htmlIntroContent" label="Intro" type="String" description="Texto de introducción en formato HTML"/>
+            <property name="lblUsername" label="Nombre de Usuario" type="String" description="Etiqueta donde el usuario ingresa el nombre de usuario de la comunidad"/>
+            <property name="lblPassword" label="Contraseña" type="String" description="Etiqueta donde el usuario ingresa la clave de acceso de la comunidad"/>
+            <property name="lblBtnLogin" label="Boton Login" type="String" description="Etiqueta del botón de ingreso a la comunidad"/>
+            <property name="lblForgotPassword" label="Olvidó Contraseña" type="String" description="Etiqueta del link de redirección a la página de olvido de contraseña"/>
+            <property name="lblSignup" label="Nuevo Usuario" type="String" description="Etiqueta del link de redirección a la página de creación de ususario"/>
+            <property name="errorMessage" label="Mensaje de Error" type="String" description="Mensaje genérico para cuando el ingreso a la comunidad genera cualquier tipo de error. Si quiere incluir el valor retornado por el servidor incluyalo con {0}"/>
+            <property name="urlForgotPwd" label="URL Olvidó Contraseña" type="String" description="URL de la página para olvido de contraseña"/>
+            <property name="urlSignUp" label="URL Registro" type="String" description="URL de la página para creación de usuario"/>
+            <property name="permSetName" label="Permission Set" type="String" description="Nombre del permission set que da acceso a la comunidad"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

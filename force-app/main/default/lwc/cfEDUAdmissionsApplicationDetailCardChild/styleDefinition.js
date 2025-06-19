@@ -1,0 +1,3 @@
+let styleDefinition =
+      {"state0element5block_element0":[{"conditions":"default","styleObject":{"class":"slds-col  condition-element slds-m-top_medium field_label slds-size_12-of-12  ","style":"      \n         ","styleProperties":{}}}],"state0element5block_element0block_element1":[{"conditions":"default","styleObject":{"class":"slds-col  condition-element slds-border_bottom slds-m-top_xx-small detail_value slds-size_10-of-12  ","style":"     border-bottom: #747474 1px solid; \n         ","styleProperties":{}}}]};
+  export default styleDefinition

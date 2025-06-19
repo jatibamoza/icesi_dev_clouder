@@ -1,0 +1,33 @@
+<template>
+    <div class="container">
+
+        <lightning-combobox name="País" label={countryLabel} value={selectedPais} placeholder="Seleccione un país"
+            options={paisOptions} onchange={handlepaisChange} required="true">
+        </lightning-combobox>
+
+        <lightning-combobox name="departamento" label={departmentLabel} value={selectedDepartamento}
+            placeholder="Seleccione el departamento" options={departamentoOptions} onchange={handleDepartamentoChange}
+            required="true">
+        </lightning-combobox>
+
+        <div class="citys">
+            <template if:true={showCityCombobox}>
+                <lightning-combobox name="ciudad" label={cityLabel} value={selectedCiudad}
+                    placeholder="Seleccione la ciudad" options={ciudadOptions} onchange={handleCiudadChange} required="true">
+                </lightning-combobox>
+            </template>
+            <template if:false={showCityCombobox}>
+                <lightning-input type="text" name="cityText" label={cityLabel} value={ciudadText}
+                    onchange={handleCiudadChange} required="true">
+                </lightning-input>
+            </template>
+        </div>
+
+       
+        <lightning-input type="checkbox" name="checkNoCity" label="La ciudad no está en la lista"
+            onchange={handleCheckOtherCity} checked={cityTextOutput}>
+        </lightning-input>
+
+    </div>
+
+</template>

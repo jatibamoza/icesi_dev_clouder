@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Community Register (Federation ID)</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="htmlIntroContent" label="Intro" type="String" description="Texto de introducción en formato HTML"/>
+            <property name="lblIdType" label="Tipo documento identidad" type="String" description="Etiqueta donde el usuario selecciona el tipo de documento"/>
+           
+            <property name="lblIdNumber" label="# ID" type="String" description="Etiqueta donde el usuario ingresa el número de documento"/>
+            <property name="idNumberMinChar" label="# ID mínimo" type="Integer" description="Número mínimo de caracteres en el Número de Identificación. Defina -1 si no se quiere aplicar esta validación"/>
+            <property name="idNumberMaxChar" label="# ID máximo" type="Integer" description="Número máximo de caracteres en el Número de Identificación. Defina -1 si no se quiere aplicar esta validación"/>
+            
+            <property name="lblFirstName" label="Nombre" type="String" description="Etiqueta donde el usuario ingresa el nombre"/>
+            <property name="firstNameMinChar" label="Nombre mínimo" type="Integer" description="Número máximo de caracteres en el Nombre. Defina -1 si no se quiere aplicar esta validación"/>
+            <property name="firstNameMaxChar" label="Nombre máximo" type="Integer" description="Número máximo de caracteres en el Nombre. Defina -1 si no se quiere aplicar esta validación"/>
+            
+            <property name="lblLastName" label="Apellido" type="String" description="Etiqueta donde el usuario ingresa el apellido"/>
+            <property name="lastNameMinChar" label="Apellido mínimo" type="Integer" description="Número mínimo de caracteres en el Apellido. Defina -1 si no se quiere aplicar esta validación"/>
+            <property name="lastNameMaxChar" label="Apellido máximo" type="Integer" description="Número máximo de caracteres en el Apellido. Defina -1 si no se quiere aplicar esta validación"/>
+                        
+            <property name="lblEmail" label="Correo electrónico" type="String" description="Etiqueta donde el usuario ingresa el correo electrónico"/>
+            <property name="emailMinChar" label="Correo mínimo" type="Integer" description="Número mínimo de caracteres en el correo electrónico. Defina -1 si no se quiere aplicar esta validación"/>
+            <property name="emailMaxChar" label="Correo máximo" type="Integer" description="Número máximo de caracteres en el correo electrónico. Defina -1 si no se quiere aplicar esta validación"/>
+                        
+            <property name="lblPhone" label="Celular" type="String" description="Etiqueta donde el usuario ingresa el teléfono"/>
+            <property name="phoneMinChar" label="Teléfono mínimo" type="Integer" description="Número mínimo de dígitos en el teléfono. Defina -1 si no se quiere aplicar esta validación"/>
+            <property name="phoneMaxChar" label="Teléfono máximo" type="Integer" description="Número máximo de dígitos en el teléfono. Defina -1 si no se quiere aplicar esta validación"/>
+                        
+            <property name="lblDOB" label="Fecha de nacimiento" type="String" description="Etiqueta donde el usuario ingresa la fecha de nacimiento"/>
+            <property name="dobYearOffset" label="Fecha nacimiento mínima" type="Integer" description="Número de años que se descuentan del año actual como año mínimo"/>
+            <property name="dobYearQuantity" label="Fecha nacimiento máxima" type="Integer" description="Número de años máximo que se permiten como año máximo"/>
+            
+            <property name="lblPassword1" label="Contraseña" type="String" description="Etiqueta donde el usuario ingresa la clave de acceso de la comunidad"/>
+            <property name="lblPassword2" label="Contraseña confirmación" type="String" description="Etiqueta donde el usuario ingresa la confirmación de la clave de acceso de la comunidad"/>
+            <property name="pwdConditionsIntro" label="Intro condiciones" type="String" description="Mensaje de introducción en la sección de validaciones"/>
+            <property name="pwdMinCharacters" label="Contraseña mínimo" type="Integer" description="Número mínimo de caracteres que el usuario debe ingresar. Defina -1 si no se quiere aplicar esta validación"/>
+            <property name="pwdTxtMinChar" label="Contraseña validación mínimo" type="String" description="Mensaje para validación de logitud mínima. Si quiere incluir el valor definido incluyalo con {0}"/>
+            <property name="pwdMaxCharacters" label="Contraseña máximo" type="Integer" description="Número máximo de caracteres que el usuario debe ingresar. Defina -1 si no se quiere aplicar esta validación"/>
+            <property name="pwdTxtMaxChar" label="Contraseña validación máximo" type="String" description="Mensaje para validación de logitud máxima. Si quiere incluir el valor definido incluyalo con {0}"/>
+            <property name="pwdAge" label="Contraseña histórico" type="Integer" description="Número de contraseñas que el sistema validará antes de permitir que se reutilice nuevamente. Defina -1 si no se quiere aplicar esta validación"/>
+            <property name="pwdTxtAge" label="Contraseña validación histórico" type="String" description="Mensaje para validación de histórico."/>
+            <property name="pwdUpperCase" label="Contraseña con mayúscula" type="Boolean" description="Valida que la contraseña tenga al menos una letra mayúscula"/>
+            <property name="pwdTxtUpper" label="Contraseña validación mayúscula" type="String" description="Mensaje para validación de mayúscula."/>
+            <property name="pwdLowerCase" label="Contraseña con minúscula" type="Boolean" description="Valida que la contraseña tenga al menos una letra minúscula"/>
+            <property name="pwdTxtLower" label="Contraseña validación minúscula" type="String" description="Mensaje para validación de minúscula."/>
+            <property name="pwdNumbers" label="Contraseña con número" type="Boolean" description="Valida que la contraseña tenga al menos un número"/>
+            <property name="pwdTxtNumber" label="Contraseña validación número" type="String" description="Mensaje para validación de número."/>
+            <property name="pwdSpecialCharacters" label="Contraseña con caracter especial" type="Boolean" description="Valida que la contraseña tenga al menos un caracter especial"/>
+            <property name="pwdTxtSpecial" label="Contraseña validación caracter especial" type="String" description="Mensaje para validación de caracter especial."/>
+            <property name="pwdSpaceCharacter" label="Contraseña sin espacios" type="Boolean" description="Valida que la contraseña no tenga espacios"/>
+            <property name="pwdTxtSpace" label="Contraseña validación espacios" type="String" description="Mensaje para validación de espacios."/>
+            <property name="pwdTxtCoincidence" label="Contraseña validación coincidencia" type="String" description="Mensaje para validación de coincidencia."/>
+
+            <property name="errorMessage" label="Mensaje general" type="String" description="Mensaje genérico para cuando el ingreso a la comunidad genera cualquier tipo de error. Adicional se incluirán los links de redirección. Si quiere incluir el valor retornado por el servidor incluyalo con {0}"/>
+            <property name="errorRequired" label="Mensaje obligatorio" type="String" description="Mensage genérico de obligatoriedad (aplica para todos los campos)"/>
+            <property name="errorLettersOnly" label="Mensaje solo letras" type="String" description="Mensaje genérico para campos que solo aceptan letras"/>
+            <property name="errorNumbersOnly" label="Mensaje solo números" type="String" description="Mensaje genérico para campos que solo aceptan números"/>
+            <property name="errorInvalidEmail" label="Mensaje correo inválido" type="String" description="Mensaje genérico cuando el correo electrónico no tiene un formato válido"/>
+            <property name="errorDOB" label="Mensaje fecha inválida" type="String" description="Mensaje genérico para cuando la fecha de nacimiento es inválida"/>
+            <property name="errorMinChar" label="Mensaje caracteres mínimos" type="String" description="Mensaje genérico para logitud mínima. Si quiere incluir el valor definido incluyalo con {0}"/>
+            <property name="errorMaxChar" label="Mensaje caracteres máximos" type="String" description="Mensaje genérico para logitud máxima. Si quiere incluir el valor definido incluyalo con {0}s"/>
+            <property name="errorExactCharText" label="Mensaje longitud texto" type="String" description="Mensaje genérico para logitud de texto exacta. Si quiere incluir el valor definido incluyalo con {0}"/>
+            <property name="errorExactCharNumber" label="Mensaje longitud números" type="String" description="Mensaje genérico para logitud de números exacta. Si quiere incluir el valor definido incluyalo con {0}"/>
+            <property name="errorMaxDOB" label="Mensaje fecha máxima" type="String" description="Mensaje genérico para fecha máxima. Si quiere incluir el valor definido incluyalo con {0}"/>
+            <property name="errorMinDOB" label="Mensaje fecha mínima" type="String" description="Mensaje genérico para fecha mínima. Si quiere incluir el valor definido incluyalo con {0}"/>
+
+            <property name="lblBtnRegister" label="Boton registro" type="String" description="Etiqueta del botón de registro a la comunidad"/>
+            <property name="urlIntro" label="TyC intro" type="String" description="Texto de términos y condiciones que se muestra antes del link"/>
+            <property name="urlText" label="TyC texto" type="String" description="Texto de términos y condiciones que se muestra como link"/>
+            <property name="urlTerms" label="TyC URL" type="String" description="URL de redirección para acceder a los términos y condiciones"/>
+            <property name="accRecordType" label="Tipo de registro cuenta" type="String" description="Nombre del tipo de registro de la cuenta a crear"/>
+            <property name="usrProfile" label="Perfil de usuario" type="String" description="Nombre del perfil de usuario"/>
+            <property name="urlForgotPwd" label="URL olvidó contraseña" type="String" description="URL de la página para olvido de contraseña"/>
+            <property name="urlLogin" label="URL inicio sesión" type="String" description="URL de la página para inicio de sesión"/>
+            <property name="permSetName" label="Permission Set" type="String" description="Nombre del permission set que da acceso a la comunidad"/>
+            <property name="urlRegisterCheck" label="URL Confirmación Registro" type="String" description="URL de la página para comunicar el registro de usuario"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

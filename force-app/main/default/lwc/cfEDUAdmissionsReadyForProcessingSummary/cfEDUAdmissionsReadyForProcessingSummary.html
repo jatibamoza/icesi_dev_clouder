@@ -1,0 +1,67 @@
+<template>
+            <div class="slds-grid slds-wrap slds-is-relative ">
+            <div style="position: fixed;z-index: 999999;top: 0;right: 0;">
+  <omnistudio-toast class="flexcard-toast-element" theme="slds" title="" message="" styletype=""> </omnistudio-toast>
+</div>
+            <div if:true={showLoader} class="slds-is-absolute vloc-loader_override" style="height: 100%; width: 100%; min-height:50px; background: transparent; z-index: 99;">
+  <div>
+   <omnistudio-spinner
+      variant="brand"
+      alternative-text="Loading content..."
+      size="medium"
+      theme="slds"
+      ></omnistudio-spinner>
+  </div>
+</div>
+            <template if:false={hasPermission}>
+              You don't have required permissions to view this card.
+            </template>
+            <template if:true={hasPermission}>
+              <template if:true={hasRecords}>
+                        <template for:each={_records} for:item="record" for:index="rindex">
+                            <omnistudio-flex-card-state if:true={record}  key={record._flex.uniqueKey} data-recordid={record.Id} record={record} data-statue="true"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-m-around_none " style="background-color:#EEF4FF; border-top: #dddbda 1px solid;border-right: #dddbda 1px solid;border-bottom: #dddbda 1px solid;border-left: #dddbda 1px solid; 
+ ">
+          <div data-style-id="state0element0" class="slds-col  slds-p-top_small slds-p-left_medium  slds-size_8-of-12  condition-element" data-rindex={rindex} style=" 
+ color:#000000; "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-7","field":"Parent.count","operator":"==","value":"1","type":"custom","hasMergeField":false}]}' ><omnistudio-output-field data-style-id="state0element0_child"   record={record}  card={card}  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-7","field":"Parent.count","operator":"==","value":"1","type":"custom","hasMergeField":false}]}'  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%7BParent.count%7D%20%7BLabel.EDUAdmissions.Item%7D%3C/span%3E%3C/div%3E"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element1" class="slds-col  slds-p-top_small slds-p-left_medium  slds-size_8-of-12  condition-element" data-rindex={rindex} style=" 
+ color:#000000; "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Parent.count","operator":"!=","value":"1","type":"custom","hasMergeField":false}]}' ><omnistudio-output-field data-style-id="state0element1_child"   record={record}  card={card}  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Parent.count","operator":"!=","value":"1","type":"custom","hasMergeField":false}]}'  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%7BParent.count%7D%20%7BLabel.EDUAdmissions.Items%7D%3C/span%3E%3C/div%3E"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element2" class="slds-col  slds-text-align_right slds-grid slds-grid_align-end slds-p-top_x-small slds-p-right_x-small  slds-size_4-of-12  " data-rindex={rindex} style=" 
+ " ><omnistudio-flex-icon data-style-id="state0element2_child"   record={record}  card={card}  alternative-text={Label.EDUAdmissions.ReadyForProcessing}  imgsrc=""  variant="warning"  extraclass=""  size="small"  icon-name="utility:warning"  icon-type="Salesforce SVG"  theme="slds"  ></omnistudio-flex-icon>
+      </div><div data-style-id="state0element3" class="slds-col  slds-text-body_small slds-p-bottom_small slds-p-left_medium  slds-size_12-of-12  " data-rindex={rindex} style=" 
+ " ><omnistudio-output-field data-style-id="state0element3_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%7BLabel.EDUAdmissions.ReadyForProcessing%7D%3C/div%3E"  theme="slds"  ></omnistudio-output-field>
+      </div>
+        </div>
+      </omnistudio-flex-card-state>
+                        </template>
+                      </template>
+                      <template if:false={hasRecords}>
+                            <omnistudio-flex-card-state  record={record} data-statue="false"  data-index="0" data-rindex={rindex} class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12 "  tracking-obj={_childCardTrackingObj} >
+      <div if:true={cardLoaded} class="slds-grid slds-wrap slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-m-around_none " style="background-color:#EEF4FF; border-top: #dddbda 1px solid;border-right: #dddbda 1px solid;border-bottom: #dddbda 1px solid;border-left: #dddbda 1px solid; 
+ ">
+          <div data-style-id="state0element0" class="slds-col  slds-p-top_small slds-p-left_medium  slds-size_8-of-12  condition-element" data-rindex={rindex} style=" 
+ color:#000000; "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-7","field":"Parent.count","operator":"==","value":"1","type":"custom","hasMergeField":false}]}' ><omnistudio-output-field data-style-id="state0element0_child"   record={record}  card={card}  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-7","field":"Parent.count","operator":"==","value":"1","type":"custom","hasMergeField":false}]}'  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%7BParent.count%7D%20%7BLabel.EDUAdmissions.Item%7D%3C/span%3E%3C/div%3E"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element1" class="slds-col  slds-p-top_small slds-p-left_medium  slds-size_8-of-12  condition-element" data-rindex={rindex} style=" 
+ color:#000000; "  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Parent.count","operator":"!=","value":"1","type":"custom","hasMergeField":false}]}' ><omnistudio-output-field data-style-id="state0element1_child"   record={record}  card={card}  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Parent.count","operator":"!=","value":"1","type":"custom","hasMergeField":false}]}'  merge-field="%3Cdiv%3E%3Cspan%20style=%22font-size:%2018pt;%22%3E%7BParent.count%7D%20%7BLabel.EDUAdmissions.Items%7D%3C/span%3E%3C/div%3E"  theme="slds"  ></omnistudio-output-field>
+      </div><div data-style-id="state0element2" class="slds-col  slds-text-align_right slds-grid slds-grid_align-end slds-p-top_x-small slds-p-right_x-small  slds-size_4-of-12  " data-rindex={rindex} style=" 
+ " ><omnistudio-flex-icon data-style-id="state0element2_child"   record={record}  card={card}  alternative-text={Label.EDUAdmissions.ReadyForProcessing}  imgsrc=""  variant="warning"  extraclass=""  size="small"  icon-name="utility:warning"  icon-type="Salesforce SVG"  theme="slds"  ></omnistudio-flex-icon>
+      </div><div data-style-id="state0element3" class="slds-col  slds-text-body_small slds-p-bottom_small slds-p-left_medium  slds-size_12-of-12  " data-rindex={rindex} style=" 
+ " ><omnistudio-output-field data-style-id="state0element3_child"   record={record}  card={card}  merge-field="%3Cdiv%3E%7BLabel.EDUAdmissions.ReadyForProcessing%7D%3C/div%3E"  theme="slds"  ></omnistudio-output-field>
+      </div>
+        </div>
+      </omnistudio-flex-card-state>
+                      </template>
+            </template>
+            <template if:true={hasError}>
+            {error}
+            </template>
+            
+      <omnistudio-action action-wrapperclass="slds-hide" re-render-flyout class="action-trigger slds-col" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+      
+      </omnistudio-action>
+  
+            <omnistudio-action class="execute-action" re-render-flyout action-wrapperclass="slds-hide" onupdateos={updateOmniscript} onselectcards={updateSelectedCards} onsetvalue={updateAction} onfireactionevent={actionEvtHandler}>
+            
+            </omnistudio-action>
+            </div>
+          </template>

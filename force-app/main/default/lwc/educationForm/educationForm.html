@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Historial Educativo" icon-name="standard:education">
+        <template for:each={educationRecords} for:item="record" for:index="index">
+            <div key={record.Id} class="row">
+                <lightning-combobox label="Grado de educación" value={record.Grado_de_Educacion__c}
+                    options={educationOptions}></lightning-combobox>
+                <lightning-combobox label="Profesión/Carrera" value={record.Profesion_Carrera__c}
+                    options={careerOptions}></lightning-combobox>
+                <lightning-input type="date" label="Fecha título" value={record.Fecha_Titulo__c}></lightning-input>
+                <lightning-input type="text" label="Universidad" value={record.Universidad__c}></lightning-input>
+            </div>
+        </template>
+
+        <lightning-button label="+ Agregar otro" onclick={addNewRow} class="add-btn"></lightning-button>
+    </lightning-card>
+</template>

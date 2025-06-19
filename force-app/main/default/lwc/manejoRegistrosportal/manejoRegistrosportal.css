@@ -1,0 +1,19 @@
+.slds-table thead th {
+    width: 200px !important;
+    min-width: 200px !important;
+    max-width: 200px !important;
+    text-align: center;
+}
+
+.full-width-table {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.custom-table {
+    width: 100%;
+}
+
+.button-container {
+    padding-top: 20px; /* Ajusta el padding según necesites */
+}

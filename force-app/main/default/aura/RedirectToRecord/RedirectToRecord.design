@@ -1,0 +1,4 @@
+<design:component label="Redirect to Record">
+
+    <design:attribute name="refreshOnly" label="Refresh Page Only?"/>
+</design:component>

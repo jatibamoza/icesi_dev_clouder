@@ -1,0 +1,8 @@
+<design:component label="Redirect Action">
+    <design:attribute name="actionType" label="Redirect Type" description="Home,Page Refresh,Record,sObject Home,URL - demo" required="true"/>
+    <design:attribute name="recordId" label="Value" description="Applies for Record or sObject Home action types only. (Record Id, sObject Name)"/>
+    <design:supportedFormFactors>
+        <design:supportedFormFactor type="Large"/>
+        <design:supportedFormFactor type="Small"/>
+    </design:supportedFormFactors>
+</design:component>

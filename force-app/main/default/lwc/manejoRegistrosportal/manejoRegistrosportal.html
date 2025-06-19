@@ -1,0 +1,66 @@
+<template>
+
+    <!-- Tabla de estudios relacionados con el ContactId -->
+    <template if:true={estudiosParaTabla}>
+        <div class="custom-table">
+            <lightning-datatable
+                key-field="Id"
+                data={estudiosParaTabla}
+                columns={columns}
+                hide-checkbox-column="true"
+                onrowaction={openEditModal}
+                row-class={getRowClass}
+                class="full-width-table">
+            </lightning-datatable>
+        </div>
+    </template>
+    
+    
+    <div class="button-container">
+        <lightning-button label="Nuevo Registro" onclick={openModal}></lightning-button>
+    </div>
+    
+    
+    <template if:true={isOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Cerrar" 
+                    
+                        class="slds-modal__close" onclick={closeModal}></lightning-button-icon>
+                        <h2 class="slds-text-heading_medium">{modalTitle}</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-record-edit-form 
+                        object-api-name={objectApiName} 
+                        onsuccess={handleSuccess} 
+                        record-id={selectedRecordId}>
+
+                        <lightning-messages></lightning-messages>
+                        
+                        <div class="slds-hide">
+                            <lightning-input-field field-name="hed__Contact__c" value={valorcontact} disabled></lightning-input-field>
+                        </div>
+                        <template for:each={fields} for:item="field">
+                            <lightning-input-field key={field.apiName}
+                                field-name={field.apiName}
+                                value={field.value}
+                                required={field.required} 
+                                data-field={field.apiName}
+                                onchange={handleChange}>
+                            </lightning-input-field>
+                        </template>
+
+                        <div class="slds-m-top_medium">
+                            <lightning-button label="Cancelar" variant="neutral" onclick={handleCancel}></lightning-button>
+                            <lightning-button type="submit" label="Guardar" variant="brand" class="slds-m-left_x-small"></lightning-button>
+                        </div>
+                    </lightning-record-edit-form>
+                </div>
+            </div>
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,13 @@
+.container {
+    
+    width: 100%;
+}
+
+.container>* {
+    width: 100%;
+}
+
+.citys {
+    
+    align-items: center;
+}

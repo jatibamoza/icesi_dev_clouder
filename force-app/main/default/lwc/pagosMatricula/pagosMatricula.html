@@ -1,0 +1,75 @@
+<template>
+    <template lwc:if={objIA}>
+        <form id="FORMULARIO_FACTURA" action={objConfig.data.From_action_matriculas__c} method="POST">
+            <input type="HIDDEN" name="ref_venta" value={ref_venta}/>
+            <input type="HIDDEN" name="descripcion" value="Matr. Fin. Pregrados, Imp. Procultura Pregrados"/> 
+            <input type="HIDDEN" name="moneda" value="COP"/> 
+            <input type="HIDDEN" name="iva" value="0"/>
+            <input type="HIDDEN" name="baseDevolucioniva" value="0"/>
+            <input type="HIDDEN" name="valorAdicional" value="0"/>
+            <input type="HIDDEN" name="nombre" value={objIA.Account.Name} /> 
+            <input type="HIDDEN" name="direccion" value={objIA.Account.CC_Direcci_n__c}/> 
+            <input type="HIDDEN" name="ciudad" value={ciudad}/> 
+            <input type="HIDDEN" name="pais" value={pais}/> 
+            <input type="HIDDEN" name="numero_cliente" value={objIA.Account.CC_ACC_N_mero_id__c}/> 
+            <input type="HIDDEN" name="celular" value={objIA.Account.PersonMobilePhone}/> 
+            <input type="HIDDEN" name="telefono_oficina" value=""/> 
+            <input type="HIDDEN" name="telefono" value={objIA.Account.Phone}/> 
+            <input type="HIDDEN" name="extra1" value={extra1}/> 
+            <input type="HIDDEN" name="extra2" value={objIA.Carrera_de_mayor_interes__r.Tipo_de_programa__c}/>
+            <input type="HIDDEN" name="url_respuesta" value={objConfig.data.url_respuestaMatriculas__c}/>
+            <input type="HIDDEN" name="url_confirmacion" value={objConfig.data.url_confirmacion_matriculas__c}/>
+            <input type="HIDDEN" name="tipo_identificacion" value={objIA.Account.CC_Acc_Tipo_id__c}/> 
+            <input type="HIDDEN" name="documento_identidad" value={objIA.Account.CC_ACC_N_mero_id__c}/>
+            <input type="HIDDEN" name="e_mail" value={objIA.Account.PersonEmail}/>
+            <input type="HIDDEN" name="valor" value={total}/> 
+            <input type="HIDDEN" name="prueba" value={objConfig.data.Prueba__c}/>
+            <input type="HIDDEN" name="plantilla" value="icesi"/>
+            <input type="HIDDEN" name="estado_pol" value="4"/>
+            <input type="HIDDEN" name="usuario_id" value="39743"/>
+            <input type="HIDDEN" name="medio_pago" value="25"/>
+            <input type="HIDDEN" name="fecha_transaccion" value={fechahoy}/> 
+            <input type="HIDDEN" name="email_comprador" value={objIA.Account.PersonEmail}/> 
+            <input type="HIDDEN" name="enviarpago" value="Enviar"/>
+            <input type="HIDDEN" name="pagoParcial" value="VALIDO"/>
+            <lightning-button label={buttonLabel} type="submit"></lightning-button>           
+        </form>
+        <template lwc:if={showVars}>
+            <br/>record ID: {recordId}
+            <br/>ref_venta: {ref_venta}
+            <br/>nombre: {objIA.Account.Name}
+            <br/>direccion: {objIA.Account.CC_Direcci_n__c}
+            <br/>ciudad: {ciudad}
+            <br/>pais: {pais}
+            <br/>numero_cliente: {objIA.Account.CC_ACC_N_mero_id__c}
+            <br/>celular: {objIA.Account.PersonMobilePhone}
+            <br/>telefono: {objIA.Account.Phone}
+            <br/>extra2: {objIA.Carrera_de_mayor_interes__r.Tipo_de_programa__c}
+            <br/>tipo_identificacion: {objIA.Account.CC_Acc_Tipo_id__c}
+            <br/>documento_identidad: {objIA.Account.CC_ACC_N_mero_id__c}
+            <br/>e_mail: {objIA.Account.PersonEmail}
+            <br/>valor: {total}
+            <br/>email_comprador: {objIA.Account.PersonEmail}
+        </template>
+    </template>
+    <template lwc:else>
+        <lightning-button label={buttonLabel} disabled></lightning-button>
+        <template lwc:if={showVars}>
+           <br/>record ID: {recordId}
+            <br/>ref_venta: {ref_venta}
+            <br/>nombre: {objIA.Account.Name}
+            <br/>direccion: {objIA.Account.CC_Direcci_n__c}
+            <br/>ciudad: {ciudad}
+            <br/>pais: {pais}
+            <br/>numero_cliente: {objIA.Account.CC_ACC_N_mero_id__c}
+            <br/>celular: {objIA.Account.PersonMobilePhone}
+            <br/>telefono: {objIA.Account.Phone}
+            <br/>extra2: {objIA.Carrera_de_mayor_interes__r.Tipo_de_programa__c}
+            <br/>tipo_identificacion: {objIA.Account.CC_Acc_Tipo_id__c}
+            <br/>documento_identidad: {objIA.Account.CC_ACC_N_mero_id__c}
+            <br/>e_mail: {objIA.Account.PersonEmail}
+            <br/>valor: {total}
+            <br/>email_comprador: {objIA.Account.PersonEmail}
+        </template>
+    </template>
+</template>

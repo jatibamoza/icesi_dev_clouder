@@ -1,0 +1,291 @@
+<apex:page >
+
+  <script src="/support/api/53.0/lightning/opencti_min.js"></script>
+  <script>
+  
+  
+  
+    const ACTION_SHOW_ACCOUNT = 1;  
+    const ACTION_SHOW_TASK = 2;
+    const ACTION_CREATE_ACCOUNT_TASK = 3;
+    var CticontrolAction = ACTION_CREATE_ACCOUNT_TASK;
+
+    var CTIC_DEFAULT_PREFIX = "57";
+
+    var CticontrolNotifPopups = [];
+
+    function SendMessageToFrame(msg) {
+        console.log("--- Sending message to CTiControl ---");
+        document.getElementById('cticontrol-iframe').contentWindow.postMessage(msg, 'https://cticontrol.co');
+    }
+    
+    function showIncomingcallPopup(caller) {
+    
+        // Definir el tamaño de la ventana emergente
+        let popupWidth = 450;
+        let popupHeight = 350;
+        // Calcular la posición para centrar el popup
+        let left = (window.screen.width - popupWidth) / 2;
+        let top = (window.screen.height - popupHeight) / 2;
+        
+        let popupWindow = window.open('https://cticontrol.co/webphone-test/popup-salesforce.html?caller=' + caller,
+        'CTiContRol - Llamada entrante',
+        `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`);
+
+        CticontrolNotifPopups[`${caller}`] = popupWindow;
+    }
+
+    function cloaseIncomingcallPopup(caller) {
+      try {
+        let popupToRemove = CticontrolNotifPopups[`${caller}`];
+        if(popupToRemove) {
+          popupToRemove.close();
+          delete CticontrolNotifPopups[`${caller}`];
+        }
+      }
+      catch(error) { console.warn("Error closing popup: " + error); }
+    }
+  
+
+    function getFormattedPhone(recordId, phoneNumber, callback) {
+      sforce.opencti.runApex({ apexClass: 'CTiControlPhoneHelper', methodName: 'getFormattedPhone',
+          methodParams: 
+              'recordId=' + recordId + '&phoneNumber=' + phoneNumber,
+          callback: function(response) {
+              let result = CTIC_DEFAULT_PREFIX;
+              try {
+
+                console.log("getFormattedPhone RESPONSE: ", response);
+
+                if(response.success == true) {
+                  console.log("Cticontrol-visualforce getFormattedPhone Succes");
+
+                  let resObj = JSON.parse(response.returnValue.runApex);
+                  if(resObj.Message && resObj.Message != '') console.warn("Cticontrol-visualforce getFormattedPhone MESSAGE: ", resObj.Message);
+                  result = resObj.FormattedPhone;
+                }
+                else {
+                  console.warn("Cticontrol-visualforce getFormattedPhone Error");
+                  result = formattedPhone;
+                }
+
+              }
+              catch(e) {
+                console.error("Cticontrol-visualforce getFormattedPhone Exception: ", e);
+                result = formattedPhone;
+              }
+
+              callback(result);
+          } 
+      });
+    }
+
+
+    function receiveMessage(event) {
+        if(event.origin.startsWith('https://cticontrol.co')) {
+            console.log("--- Mensaje recibido en Salesforce: " + event.data);
+
+            if((String(event.data) === event.data) && event.data.length > 0) {
+              let eventObj = JSON.parse(event.data);
+              
+              if(!eventObj.ctiEvent) return;
+
+              if(eventObj.ctiEvent == "incomingcall") {
+                sforce.opencti.setSoftphonePanelVisibility({ visible: true });
+                
+                showIncomingcallPopup(eventObj.peerPhone);
+              }
+
+
+
+
+              if(CticontrolAction == ACTION_SHOW_ACCOUNT) {
+
+                let peerPhone = `${eventObj.peerPhone}`;
+                if(eventObj.ctiEvent == "incomingcall") {
+                  sforce.opencti.runApex({ apexClass: 'CTiControlPhoneHelper', methodName: 'searchAccountByPhone', methodParams: 'phone=' + peerPhone,
+                                        callback: function(response) {
+                                            if(response.success == true) {
+                                                var account = response.returnValue.runApex;
+                                                if(account !== null) {
+                                                    sforce.opencti.screenPop({
+                                                        type: sforce.opencti.SCREENPOP_TYPE.SOBJECT,
+                                                        params: { recordId: account.Id }
+                                                    });
+                                                }
+                                                else {
+                                                  console.warn("Accout not found");
+                                                }
+                                            }
+                                        } 
+                                        });
+                }
+
+              }
+
+              else if (CticontrolAction == ACTION_SHOW_TASK) {
+                
+                if(eventObj.ctiEvent == "callaccepted" && eventObj.direction == "inbound") {
+
+                  cloaseIncomingcallPopup(eventObj.peerPhone);
+
+                  let peerPhone = `${eventObj.peerPhone}`;
+                  sforce.opencti.screenPop({
+                    type: sforce.opencti.SCREENPOP_TYPE.NEW_RECORD_MODAL,
+                        params: { entityName: "Task" }
+                  });
+                }
+              }
+
+              else if (CticontrolAction == ACTION_CREATE_ACCOUNT_TASK) {
+                
+
+                if(eventObj.ctiEvent == "callaccepted" && eventObj.direction == "inbound") {
+
+                  cloaseIncomingcallPopup(eventObj.peerPhone);
+                }
+
+                else if(eventObj.ctiEvent == "callended") {
+
+                  cloaseIncomingcallPopup(eventObj.peerPhone);
+
+                  if(!eventObj.peerPhone) return;
+
+                  let reqObj = {
+                    peerPhone: eventObj.peerPhone,
+                    status: "",
+                    duration: eventObj.callDuration,
+                    strDate: eventObj.dateOrigination.split('T')[0],
+                    strTime: eventObj.dateOrigination.split('T')[1].split('.')[0],
+                    direction: eventObj.direction == "inbound" ? "Entrante" : "Saliente",
+                    recordId: !eventObj.objectId || eventObj.objectId == '' ? null : eventObj.objectId
+                  }
+                  
+                  reqObj.source = eventObj.direction == "inbound" ? eventObj.peerPhone : eventObj.sipUser;
+                  reqObj.destination = eventObj.direction == "inbound" ? eventObj.sipUser : eventObj.peerPhone;
+                  
+                  switch(eventObj.callTypeId) {
+                    case 106: //unsuccessfulAudio
+                    case 205: //unsuccessfulVideo
+                      reqObj.status = "FAILED";
+                      break;
+                    case 101: //missingAudio
+                    case 203: //missingVideo
+                    case 105: //rejectAudio
+                    case 204: //rejectVideo
+                      if(eventObj.direction == "inbound") {
+                        reqObj.status = "MISSED"; // debe ser para la entrante (para ICESI)
+                      }
+                      else {
+                        reqObj.status = "UNANSWERED/NOT ANSWER"; // debe ser para la saliente (para ICESI)
+                      }
+                      break;
+                    default:
+                      if(reqObj.duration && reqObj.duration > 0) reqObj.status = "ANSWERED";
+                      else reqObj.status = "FAILED";
+                      break;
+                  }
+
+                  // verificando si se realizó una transferencia
+                  
+                  if(eventObj.transferResultCode && eventObj.transferResultCode != "") { // si la llamada terminó con código de transferencia, se registra como transferida...
+                    reqObj.status = "TRANSFERIDA";
+                    if(eventObj.endsWithAttendedTransfer === true) reqObj.status = "ANSWERED"; // si la llamada tuvo transferencia asistida, queda como respondida porque la llamada que está obteniendo el código de transferencia es el destino. 
+                  }
+
+                  else if(reqObj.status == "ANSWERED") {
+                    if(eventObj.endsWithAttendedTransfer === true) reqObj.status = "TRANSFERIDA"; // si la llamada tuvo transferencia asistida, se registra aunque no haya recibido código, ya que la llamada que se transfiere a la extensión de destino no está obteniendo código de transferencia. 
+                  }
+                  
+                  if(isString(reqObj.duration)) reqObj.duration = Number(reqObj.duration);
+                  if(!isNumber(reqObj.duration)) reqObj.duration = -1;
+                  if(!reqObj.recordId) reqObj.recordId = null;
+
+                  sforce.opencti.runApex({ apexClass: 'CTiControlPhoneHelper', methodName: 'CreateCallTask',
+                      methodParams: 
+                          'recordId=' + reqObj.recordId + '&peerPhone=' + reqObj.peerPhone + '&source=' + reqObj.source + '&status=' + reqObj.status + '&destination=' + reqObj.destination + '&duration=' + reqObj.duration + '&strDate=' + reqObj.strDate + '&strTime=' + reqObj.strTime + '&direction=' + reqObj.direction,
+                      callback: function(response) {
+                          if(response.success == true) {
+                            console.log("Cticontrol-visualforce ACTION_CREATE_ACCOUNT_TASK Succes");
+                          }
+                          else {
+                            console.warn("Cticontrol-visualforce ACTION_CREATE_ACCOUNT_TASK Error: response: ", response);
+                          }
+                      } 
+                      });
+                }
+              }
+            }
+
+
+        }
+      
+        
+    }
+
+    window.addEventListener("message", receiveMessage, false);
+
+    //
+    // onClickToDial event listener
+    //
+    var listener = function(payload) {
+      
+      let msg = {
+        functionName: "doCall1Index",
+        phoneNumber: payload.number,
+        objectId: payload.recordId
+      }
+      
+      getFormattedPhone(msg.objectId, msg.phoneNumber, (formattedPhone) => {
+        msg.phoneNumber = formattedPhone;
+        msg = JSON.stringify(msg);
+        SendMessageToFrame(msg);
+        sforce.opencti.setSoftphonePanelVisibility({ visible: true });
+      })
+    };
+
+    //
+    // enableClickToDial callback
+    //
+    var callback = function(response) {
+      if (response.success) {
+        console.log('sforce.opencti.enableClickToDial :: Sucess', response.returnValue);
+      } else { 
+        console.error('sforce.opencti.enableClickToDial :: Error', response.errors);
+      } 
+    };
+
+    //
+    // Register the clickToDial listener.
+    //
+    window.addEventListener('load', function() {
+      
+      // Escalando las dimensiones del webphone...
+      let ele=document.getElementById("cticontrol-iframe");
+      let custom_style={
+        '-ms-zoom': '0.85',
+        '-moz-transform': 'scale(0.85)',
+        '-moz-transform-origin': '0 0',
+        '-o-transform': 'scale(0.85)',
+        '-o-transform-origin': '0 0',
+        '-webkit-transform': 'scale(0.85)',
+        '-webkit-transform-origin': '0 0',
+        'position': 'absolute'
+      }
+      Object.assign(ele.style,custom_style);
+      
+    
+      console.log('Before enableClickToDial');
+      sforce.opencti.enableClickToDial({callback: callback});
+      sforce.opencti.onClickToDial({listener: listener});
+      console.log('After onClickToDial');
+    });
+  </script>
+    
+  <style>
+      .hasMotif {
+          margin : 0px;
+      }
+  </style>
+  <apex:iframe id="cticontrol-iframe" src="https://cticontrol.co/webphone-test/" height="650" width="330" frameborder="false"/>
+</apex:page>

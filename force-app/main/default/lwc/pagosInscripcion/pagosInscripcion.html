@@ -1,0 +1,56 @@
+<template>
+    <template lwc:if={objIA}>
+        <form id="redirectForm" action={objConfig.data.From_action__c} method="POST">
+            <input type="hidden" name="origen" id="origen" value="Salesforce" />
+            <input type="hidden" name="iva" id="iva" value="0" />
+            <input type="hidden" name="prueba" id="prueba" value={objConfig.data.Prueba__c} />
+            <input type="hidden" name="extra1" id="extra1" value={extra1} />
+            <input type="hidden" name="extra2" id="extra2" value={objIA.Carrera_de_mayor_interes__r.Tipo_de_programa__c} />
+            <input type="hidden" name="url_confirmacion" id="url_confirmacion" value={objConfig.data.url_confirmacion__c} />
+            <input type="hidden" name="url_respuesta" id="url_respuesta" value={objConfig.data.url_respuesta__c} />
+            <input type="hidden" name="ref_venta" id="ref_venta" value={objIA.Numero_de_factura__c} />
+            <input type="hidden" name="descripcion" id="descripcion" value="Pago cargo de inscripción" />
+            <input type="hidden" name="moneda" id="moneda" value="COP" />
+            <input type="hidden" name="valor" id="valor" value={objIA.Monto_factura__c} />
+            <input type="hidden" name="nombre" id="nombre" value={Name} />
+            <input type="hidden" name="apellido" id="apellido" value={objIA.Account.LastName} />
+            <input type="hidden" name="numeroCliente" id="numeroCliente" value="0" />
+            <input type="hidden" name="telefonoOficina" id="telefonoOficina" value="0" />
+            <input type="hidden" name="telefonoMovil" id="telefonoMovil" value={objIA.Account.PersonMobilePhone} />
+            <input type="hidden" name="e_mail" id="e_mail" value={objIA.Account.PersonEmail} />
+            <input type="hidden" name="tipo_id" id="tipo_id" value={objIA.Account.CC_Acc_Tipo_id__c} />
+            <input type="hidden" name="documento_identidad" id="documento_identidad" value={objIA.Account.CC_ACC_N_mero_id__c} />
+            <input type="hidden" name="pais" id="pais" value={pais} />
+            <input type="hidden" name="ciudad" id="ciudad" value={ciudad}/>
+            <input type="hidden" name="direccion" id="direccion" value={objIA.Account.CC_Direcci_n__c} />
+            <input type="hidden" name="telefono" id="telefono" value={objIA.Account.Phone} />
+            <lightning-button label={buttonLabel} type="submit"></lightning-button>           
+         </form>
+         <template lwc:if={showVars}>
+            <br/>record ID: {recordId}
+            <br/>extra 1: {extra1}
+            <br/>extra 2: {objIA.Carrera_de_mayor_interes__r.Tipo_de_programa__c}
+            <br/>refVenta: {objIA.Numero_de_factura__c}
+            <br/>valor: {objIA.Monto_factura__c}
+            <br/>nombre: {Name}
+            <br/>tlefonoMovil: {objIA.Account.PersonMobilePhone}
+            <br/>e_mail: {objIA.Account.PersonEmail}
+            <br/>tipo_id: {objIA.Account.CC_Acc_Tipo_id__c}
+            <br/>documento_identidad: {objIA.Account.CC_ACC_N_mero_id__c}
+            <br/>pais: {pais}
+            <br/>ciudad: {ciudad}
+            <br/>direccion: {objIA.Account.CC_Direcci_n__c}
+            <br/>telefono: {objIA.Account.Phone}
+            <br/>action: {objConfig.data.From_action__c}
+            <br/>url_confirmacion: {objConfig.data.url_confirmacion__c}
+            <br/>url_respuesta: {objConfig.data.url_respuesta__c}
+            <br/>prueba: {objConfig.data.Prueba__c}
+         </template>
+    </template>
+    <template lwc:else>
+        <lightning-button label={buttonLabel} disabled></lightning-button>
+        <template lwc:if={showVars}>
+            <br/>record ID: {recordId}
+        </template>
+    </template>
+</template>

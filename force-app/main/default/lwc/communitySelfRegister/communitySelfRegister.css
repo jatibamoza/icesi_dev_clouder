@@ -1,0 +1,113 @@
+.login-container {
+    text-align: center;
+    max-width: 400px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px;
+    top: 60%;
+    transform: translateY(-60%);
+    z-index: 1;
+}
+
+.input-icon-right {
+    position: absolute;
+    top: 90%;
+    transform: translateY(-60%);
+    z-index: 1;
+}
+
+.input-custom{
+    height: 50px;
+    border-radius: 0;
+    margin-top: 10px
+}
+
+lightning-input {
+    padding-left: 30px; /* Space for icon */
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 15px;
+    display: grid;
+    font-size: larger;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.links a {
+    color: var(--lwc-colorTextInverse,rgb(255, 255, 255));
+}
+
+.errorMessageContainer{
+    text-align: center;
+    color: var(--lwc-colorTextError,rgb(234, 0, 30));
+}
+
+.padding-right-15{
+    padding-right: 15px;
+}
+
+.valid {
+    color: green;
+    --slds-c-icon-color-foreground-default: green;
+}
+
+.invalid {
+    color: red;
+    --slds-c-icon-color-foreground-default: red;
+}
+
+.warning {
+    color: black;
+    --slds-c-icon-color-foreground-default: #ff9966;
+}
+
+.comments-icn{
+    --slds-c-icon-color-foreground-default: orange;
+    --slds-c-icon-color-foreground: orange;
+    --slds-c-icon-color-background: white;
+ }
+
+ .pwd-conditions-container{
+    margin-right: 1px;
+    margin-left: 1px;
+    text-align: initial;
+ }
+
+.pwd-conditions li{
+    margin: 5px 15px;
+}
+
+.bg-light{
+    background-color: #ffffff91;
+    backdrop-filter: blur(10px);
+}
+
+.accordion-pwd-container {
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.accordion-pwd-container.show {
+    margin-top: 10px;
+    opacity: 1;
+    padding: 10px;
+}
+
+.accordion-pwd-container.hide {
+    max-height: 0;
+    opacity: 0;
+}

@@ -1,0 +1,8 @@
+.nav-count-badge {
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    padding-top: 3px;
+    background: #C9C9C9;
+    text-align: center;
+}

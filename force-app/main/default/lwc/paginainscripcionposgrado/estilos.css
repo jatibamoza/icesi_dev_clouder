@@ -1,0 +1,8 @@
+.custom-button {
+    background-color: #0070d2; /* Azul Salesforce */
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+}

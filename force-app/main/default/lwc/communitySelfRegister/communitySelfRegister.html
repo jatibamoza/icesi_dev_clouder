@@ -1,0 +1,180 @@
+<template>
+    <div class="login-container">
+        <div class="pwd-conditions-container bg-light">
+            <lightning-formatted-rich-text value={htmlIntroContent}></lightning-formatted-rich-text>
+            <template if:true={showError}>
+                <lightning-formatted-rich-text value={errorMessageMerged}></lightning-formatted-rich-text>
+            </template>
+        </div>
+        <!-- ID TYPE -->
+        <div class={idTypeClass}>
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                <lightning-icon icon-name="utility:picklist_type" size="x-small" class="input-icon"></lightning-icon>
+                <select name="idType" class="slds-select slds-input input-custom" id="idType" onchange={handleInputChange}>
+                    <option value="">{lblIdType}</option>
+                    <template for:each={idOptions} for:item="option">
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                    </template>
+                </select>
+            </div>
+            <template if:true={idTypeIsInvalid}>
+                <div class="slds-form-element__help bg-light">{idTypeError}</div>
+            </template>
+        </div>
+        <!-- ID NUMBER -->
+        <div class={idNumberClass}>
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                <lightning-icon icon-name="utility:topic2" size="x-small" class="input-icon"></lightning-icon>
+                <input type="text" name="idNumber" value={idNumber} placeholder={lblIdNumber} oninput={handleInputChange} class="slds-input input-custom"/>
+            </div>
+            <template if:true={idNumberIsInvalid}>
+                <div class="slds-form-element__help bg-light">{idNumberError}</div>
+            </template>
+        </div>
+        <!-- FIRST NAME -->
+        <div class={firstNameClass}>
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                <lightning-icon icon-name="utility:user" size="x-small" class="input-icon"></lightning-icon>
+                <input type="text" name="firstName" placeholder={lblFirstName} onkeyup={handleInputChange} class="slds-input input-custom" />
+            </div>
+            <template if:true={firstNameIsInvalid}>
+                <div class="slds-form-element__help bg-light">{firstNameError}</div>
+            </template>
+        </div>
+        <!-- LAST NAME -->
+        <div class={lastNameClass}>
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                <lightning-icon icon-name="utility:user" size="x-small" class="input-icon"></lightning-icon>
+                <input type="text" name="lastName" placeholder={lblLastName} onkeyup={handleInputChange} class="slds-input input-custom" />
+            </div>
+            <template if:true={lastNameIsInvalid}>
+                <div class="slds-form-element__help bg-light">{lastNameError}</div>
+            </template>
+        </div>
+        <!-- EMAIL -->
+        <div class={emailClass}>
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                <lightning-icon icon-name="utility:email" size="x-small" class="input-icon"></lightning-icon>
+                <input type="email" name="email" placeholder={lblEmail} onkeyup={handleInputChange} class="slds-input input-custom" />
+            </div>
+            <template if:true={emailIsInvalid}>
+                <div class="slds-form-element__help bg-light">{emailError}</div>
+            </template>
+        </div>
+        <!-- PHONE -->
+        <div class={phoneClass}>
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                <lightning-icon icon-name="utility:call" size="x-small" class="input-icon"></lightning-icon>
+                <input type="text" name="phone" placeholder={lblPhone} onkeyup={handleInputChange} class="slds-input input-custom" aria-describedby="error-message-id-49" aria-invalid={phoneIsInvalid}/>
+            </div>
+            <template if:true={phoneIsInvalid}>
+                <div class="slds-form-element__help bg-light" id="error-message-id-49">{phoneError}</div>
+            </template>
+        </div>
+        <!-- DATE OF BIRTH -->
+        <div class={dobClass}>
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                <lightning-icon icon-name="utility:dayview" size="x-small" class="input-icon"></lightning-icon>
+                <input type="text" name="dob" placeholder={lblDOB} onchange={handleInputChange} class="slds-input input-custom" min={dobMinDate} max={dobMaxDate} onfocus={handleFocus} onblur={handleBlur}/>
+            </div>
+            <template if:true={dobIsInvalid}>
+                <div class="slds-form-element__help bg-light">{dobError}</div>
+            </template>
+        </div>
+        <!-- PASSWORD -->
+    <!-- PASSWORD NOT NEEDED
+        <div class="slds-form-element">
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right">
+                <lightning-icon icon-name="utility:lock" size="x-small" class="input-icon"></lightning-icon>
+                <input type={passwordInputType1} name="pwd1" placeholder={lblPassword1} onkeyup={handleInputChange} class="slds-input input-custom" onfocus={onShowValidations} onblur={onHideValidations}/>
+                <template if:true={showPassword1}>
+                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Ocultar contraseña" onclick={handleTogglePassword1}>
+                        <lightning-icon icon-name="utility:hide" size="x-small" class="input-icon-right"></lightning-icon>
+                    </button>
+                </template>
+                <template if:false={showPassword1}>
+                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Mostrar contraseña" onclick={handleTogglePassword1}>
+                        <lightning-icon icon-name="utility:preview" size="x-small" class="input-icon-right"></lightning-icon>
+                    </button>
+                </template>
+            </div>
+        </div>
+    -->
+        <!-- PASSWORD CONDITIONS -->
+    <!-- PASSWORD NOT NEEDED
+        <div class={pwdClass}>
+            <p>{pwdConditionsIntro}</p>
+            
+            <ul class="pwd-conditions">
+                <template if:true={showPwdMinChars}>
+                    <li class={passwordConditions.minLength.class}><lightning-icon icon-name={passwordConditions.minLength.icon} size="x-small" class={passwordConditions.minLength.class}></lightning-icon> {pwdTxtMinCharMerged}</li>
+                </template>
+                <template if:true={showPwdMaxChars}>
+                    <li class={passwordConditions.maxLength.class}><lightning-icon icon-name={passwordConditions.maxLength.icon} size="x-small" class={passwordConditions.maxLength.class}></lightning-icon> {pwdTxtMaxCharMerged}</li>
+                </template>
+                <template if:true={pwdUpperCase}>
+                    <li class={passwordConditions.hasUpper.class}><lightning-icon icon-name={passwordConditions.hasUpper.icon} size="x-small" class={passwordConditions.hasUpper.class}></lightning-icon> {pwdTxtUpper}</li>
+                </template>
+                <template if:true={pwdLowerCase}>
+                    <li class={passwordConditions.hasLower.class}><lightning-icon icon-name={passwordConditions.hasLower.icon} size="x-small" class={passwordConditions.hasLower.class}></lightning-icon> {pwdTxtLower}</li>
+                </template>
+                <template if:true={pwdNumbers}>
+                    <li class={passwordConditions.hasNumber.class}><lightning-icon icon-name={passwordConditions.hasNumber.icon} size="x-small" class={passwordConditions.hasNumber.class}></lightning-icon> {pwdTxtNumber}</li>
+                </template>
+                <template if:true={pwdSpecialCharacters}>
+                    <li class={passwordConditions.hasSpecial.class}><lightning-icon icon-name={passwordConditions.hasSpecial.icon} size="x-small" class={passwordConditions.hasSpecial.class}></lightning-icon> {pwdTxtSpecial}</li>
+                </template>
+                <template if:true={pwdSpaceCharacter}>
+                    <li class={passwordConditions.noSpaces.class}><lightning-icon icon-name={passwordConditions.noSpaces.icon} size="x-small" class={passwordConditions.noSpaces.class}></lightning-icon> {pwdTxtSpace}</li>
+                </template>
+                <template if:true={showPwdAge}>
+                    <li class="warning"><lightning-icon icon-name="utility:warning" size="x-small" class="warning"></lightning-icon> {pwdTxtAgeMerged}</li>
+                </template>
+            </ul>
+
+        </div>-->
+        <!-- PASSWORD CONFIRMATION -->
+    <!-- PASSWORD NOT NEEDED
+        <div class={pwd2Class}>
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right">
+                <lightning-icon icon-name="utility:lock" size="x-small" class="input-icon"></lightning-icon>
+                <input type={passwordInputType2} name="pwd2" placeholder={lblPassword2} onkeyup={handleInputChange} class="slds-input input-custom" />
+                <template if:true={showPassword2}>
+                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Ocultar contraseña" onclick={handleTogglePassword2}>
+                        <lightning-icon icon-name="utility:hide" size="x-small" class="input-icon-right"></lightning-icon>
+                    </button>
+                </template>
+                <template if:false={showPassword2}>
+                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Mostrar contraseña" onclick={handleTogglePassword2}>
+                        <lightning-icon icon-name="utility:preview" size="x-small" class="input-icon-right"></lightning-icon>
+                    </button>
+                </template>
+            </div>
+            <template if:true={pwd2Invalid}>
+                <div class="slds-form-element__help bg-light">{pwdTxtCoincidence}</div>
+            </template>
+        </div>
+    -->
+        <!-- TERMS AND CONDITIONS CHECKBOX -->
+        <div class="slds-form-element slds-m-top_medium">
+            <div class="slds-checkbox bg-light">
+                <input type="checkbox" id="terms" name="terms" onchange={handleInputChange} />
+                <label class="slds-checkbox__label" for="terms">
+                    <span class="slds-checkbox_faux"></span>
+                    <span class="slds-form-element__label">{urlIntro} <a href={urlTerms} target="_blank">{urlText}</a></span>
+                </label>
+            </div>
+        </div>
+        <!-- SIGNUP BUTTON -->
+        <template if:false={isProcessing}>
+            <lightning-button label={lblBtnRegister} variant="brand" onclick={handleRegister} class="login-button" disabled={isButtonDisabled}>
+            </lightning-button>
+        </template>
+        <template if:true={isProcessing}>
+            <lightning-button label={lblBtnRegisterProcessing} variant="brand" class="login-button" disabled>
+            </lightning-button>
+            <lightning-spinner alternative-text="Procesando" size="small" class="spinner"></lightning-spinner>
+        </template>
+        
+    </div>
+</template>

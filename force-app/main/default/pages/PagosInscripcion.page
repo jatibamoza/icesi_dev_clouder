@@ -1,0 +1,34 @@
+<apex:page standardController="IndividualApplication" extensions="ControladorPaginaInscipcion" showHeader="false" sidebar="false" standardStylesheets="true" applyBodyTag="false" applyHtmlTag="false">
+
+        <form action="https://192.168.220.229/pagos_online/integracion_pagosonline/pagina_envio.php" method="POST" target="_blank">
+        <input type="hidden" name="origen" id="origen" value="Salesforce" />
+        <input type="hidden" name="iva" id="iva" value="0" />
+         <input type="hidden" name="prueba" id="prueba" value="2" />
+        <input type="hidden" name="extra1" id="extra1" value="inscripcion-{!IndividualApplication.Account.CC_Programa_de_inter_s__r.CC_CODIGO_BANNER__c}-0-{!IndividualApplication.Monto_factura__c}-0-0-recruiter" />
+        <input type="hidden" name="extra2" id="extra2" value="{!tipo}" />
+        <input type="hidden" name="url_confirmacion" id="url_confirmacion" value="https://192.168.220.229/pagos_online/integracion_pagosonline/confirmacion.php" />
+        <input type="hidden" name="url_respuesta" id="url_respuesta" value="https://192.168.220.229/pagos_online/integracion_pagosonline/respuesta.php" />
+        <input type="hidden" name="ref_venta" id="ref_venta" value="{!IndividualApplication.Numero_de_factura__c}" />
+        <input type="hidden" name="descripcion" id="descripcion" value="Pago cargo de inscripción" />
+        <input type="hidden" name="moneda" id="moneda" value="COP" />
+        <input type="hidden" name="valor" id="valor" value="{!IndividualApplication.Monto_factura__c}" />
+        <input type="hidden" name="nombre" id="nombre" value="{!IndividualApplication.Account.Name}" />
+        <input type="hidden" name="apellido" id="apellido" value="{!IndividualApplication.Account.LastName}" />
+        <input type="hidden" name="numeroCliente" id="numeroCliente" value="0" />
+        <input type="hidden" name="telefonoOficina" id="telefonoOficina" value="0" />
+        <input type="hidden" name="telefonoMovil" id="telefonoMovil" value="{!IndividualApplication.Account.PersonMobilePhone}" />
+        <input type="hidden" name="e_mail" id="e_mail" value="{!IndividualApplication.Account.PersonEmail}" />
+        <input type="hidden" name="tipo_id" id="tipo_id" value="{!tipodoc}" />
+        <input type="hidden" name="documento_identidad" id="documento_identidad" value="{!IndividualApplication.Account.CC_ACC_N_mero_id__c}" />
+        <input type="hidden" name="pais" id="pais" value="{!pais}" />
+        <input type="hidden" name="ciudad" id="ciudad" value="{!ciudad}"/>
+        <input type="hidden" name="direccion" id="direccion" value="{!IndividualApplication.Account.CC_Direcci_n__c}" />
+        <input type="hidden" name="telefono" id="telefono" value="{!IndividualApplication.Account.Phone}" />
+        <input type="submit" value="Pagar incripcion en línea " />
+       
+     </form>
+    
+
+    
+    
+</apex:page>

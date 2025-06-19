@@ -1,0 +1,13 @@
+.field_value {
+  font-weight: bold;
+  color: #444444;
+  font-size: medium;
+}
+.field_label{
+    font-size: small;
+    color: #444444;
+}
+.detail_value {
+  color: #2E2E2E;
+  font-size: medium;
+}

@@ -1,0 +1,9 @@
+.row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.add-btn {
+    margin-top: 10px;
+}

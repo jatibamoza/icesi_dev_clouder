@@ -1,0 +1,41 @@
+<apex:page standardController="IndividualApplication" extensions="ControladorPaginaInscipcion" showHeader="false" sidebar="false" standardStylesheets="true" applyBodyTag="false" applyHtmlTag="false">
+
+     <form id="FORMULARIO_FACTURA" action="https://192.168.220.229/pagos_online/integracion_pagosonline/pagina_banner.php" method="POST" target="_blank">
+        <input type="hidden" name="origen" id="origen" value="Salesforce" />
+        <input type="HIDDEN" name="ref_venta" value="{!IndividualApplication.Numero_de_factura_matricula__c}-{!hora}"/>
+        <input type="HIDDEN" name="descripcion" value="Matr. Fin. Pregrados, Imp. Procultura Pregrados"/> 
+        <input type="HIDDEN" name="moneda" value="COP"/> 
+        <input type="HIDDEN" name="iva" value="0"/>
+        <input type="HIDDEN" name="baseDevolucioniva" value="0"/>
+        <input type="HIDDEN" name="valorAdicional" value="0"/>
+        <input type="HIDDEN" name="nombre" value="{!IndividualApplication.Account.Name}" /> 
+        <input type="HIDDEN" name="direccion" value="{!IndividualApplication.Account.CC_Direcci_n__c}"/> 
+        <input type="HIDDEN" name="ciudad" value="{!ciudad}"/> 
+        <input type="HIDDEN" name="pais" value="{!pais}"/> 
+        <input type="HIDDEN" name="numero_cliente" value="{!IndividualApplication.Account.CC_ACC_N_mero_id__c}"/> 
+        <input type="HIDDEN" name="celular" value="{!IndividualApplication.Account.PersonMobilePhone}"/> 
+        <input type="HIDDEN" name="telefono_oficina" value=""/> 
+        <input type="HIDDEN" name="telefono" value="{!IndividualApplication.Account.Phone}"/> 
+        <input type="HIDDEN" name="extra1" value="autoservicio-13154400-0-SIS-0-0-banner"/> 
+        <input type="HIDDEN" name="extra2" value="{!tipodoc}"/>
+        <input type="HIDDEN" name="url_respuesta" value="https://192.168.220.229/pagos_online/integracion_pagosonline/respuesta.php"/>
+        <input type="HIDDEN" name="url_confirmacion" value="https://192.168.220.229/pagos_online/integracion_pagosonline/confirmacion.php"/>
+        <input type="HIDDEN" name="tipo_identificacion" value="{!tipo}"/> 
+        <input type="HIDDEN" name="documento_identidad" value="{!IndividualApplication.Account.CC_ACC_N_mero_id__c}"/>
+        <input type="HIDDEN" name="e_mail" value="{!IndividualApplication.Account.PersonEmail}"/>
+        <input type="HIDDEN" name="valor" value="{!total}"/> 
+        <input type="hidden" name="prueba" id="prueba" value="2" />
+        <input type="HIDDEN" name="plantilla" value="icesi"/>
+        <input type="HIDDEN" name="estado_pol" value="4"/>
+        <input type="HIDDEN" name="usuario_id" value="39743"/>
+        <input type="HIDDEN" name="medio_pago" value="25"/>
+        <input type="HIDDEN" name="fecha_transaccion" value="09-JUL-2024"/> 
+        <input type="HIDDEN" name="email_comprador" value="{!IndividualApplication.Account.PersonEmail}"/> 
+        <input type="HIDDEN" name="enviarpago" value="Enviar"/>
+        <input type="HIDDEN" name="pagoParcial" value="VALIDO"/>
+        <input type="submit" value="Pagar Matricula en linea" />
+        </form>
+
+    
+    
+</apex:page>
