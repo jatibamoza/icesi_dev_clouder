@@ -85,7 +85,9 @@ sf apex test run --class-names ICS_DataMasterBuilder_tst,ICS_DataMasterMapper_ts
 ```
 
 ➕ Agregar una nueva fuente de datos a ICS_DataMaster__c
+
 🔁 Paso a paso: Agregar un nuevo query desde Metadata
+
 Accede a Setup en Salesforce.
 
 Ve a Custom Metadata Types y abre ICS_QueryMaster__mdt.
