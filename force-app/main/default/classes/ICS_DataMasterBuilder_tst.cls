@@ -82,6 +82,18 @@ private class ICS_DataMasterBuilder_tst {
     @isTest
     static void testScheduler() {
         Test.startTest();
+        Id idRecordTypeIAEtapasEmbudo = Schema.SObjectType.ICS_DataMaster__c.getRecordTypeInfosByDeveloperName().get('IA_EtapasEmbudo').getRecordTypeId();
+        ICS_DataMaster__c dm = new ICS_DataMaster__c();
+        dm.RecordTypeId = idRecordTypeIAEtapasEmbudo;
+        dm.ICS_CarreraMayorInteres_CC_CODIGO_BANNER__c = 'Carrera_de_mayor_interes__r.CC_CODIGO_BANNER__c';
+        dm.ICS_CarreraMayorInteres_Parent_Name__c = 'Carrera_de_mayor_interes__r.Parent.Name';
+        dm.ICS_CarreraMayorInteres_Parent_NIT__c = 'Carrera_de_mayor_interes__r.Parent.NIT__c';
+        dm.ICS_CarreraMayorint_Parent_Owner_Name__c = 'Carrera_de_mayor_interes__r.Parent.Owner.Name';
+        dm.ICS_CCPeriodoAcademico_CodigoPeriodo__c = 'CC_Periodo_academico__r.Codigo_periodo__c';
+        dm.ICS_CCPeriodoAcademico_Name__c = 'CC_Periodo_academico__r.Name';
+        dm.ICS_Owner_Name__c = 'Owner.Name';
+        dm.ICS_IA_Status__c = 'Status';
+        insert dm;
         ICS_DataMasterBuilder_sch scheduler = new ICS_DataMasterBuilder_sch();
         String cronExpression = '0 0 1 * * ?'; // Expresión CRON de ejemplo
         System.schedule('Test Data Master Builder Schedule', cronExpression, scheduler);
