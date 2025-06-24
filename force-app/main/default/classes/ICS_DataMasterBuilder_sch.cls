@@ -23,8 +23,20 @@ global class ICS_DataMasterBuilder_sch implements Schedulable{
     private static void deleteDataMasterRecords(String sDeveloperName) {
         // Método para eliminar registros de ICS_DataMaster__c
         List<ICS_DataMaster__c> recordsToDelete = [SELECT Id FROM ICS_DataMaster__c WHERE RecordType.DeveloperName =: sDeveloperName];
-        if (!recordsToDelete.isEmpty()) {
-            delete recordsToDelete;
+        
+        Integer batchSize = 2000;
+        List<SObject> buffer = new List<SObject>();
+
+        if(!recordsToDelete.isEmpty()) {
+
+            for( Integer i = 0; i < recordsToDelete.size(); i++ ){
+                buffer.add(recordsToDelete[i]);
+
+                if( buffer.size() == batchSize || i == recordsToDelete.size() - 1) {
+                    delete buffer;
+                    buffer.clear();
+                }
+            }
         }
     }
 }
