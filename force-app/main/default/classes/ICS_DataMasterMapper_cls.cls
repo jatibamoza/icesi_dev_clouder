@@ -34,6 +34,8 @@ public class ICS_DataMasterMapper_cls {
         dm.ICS_CCPeriodoAcademico_Name__c = (String)getNestedValue(record, 'CC_Periodo_academico__r.Name'); //
         // Campo de la relación 'Owner'
         dm.ICS_Owner_Name__c = (String)getNestedValue(record, 'Owner.Name');
+        // Campos de la IA
+        dm.ICS_IA_Status__c = (String)getNestedValue(record, 'Status');
         // --- Manejo especial para campos con funciones (ej. format()) ---
         // El query usa format(CreatedDate). Apex le asigna un alias, usualmente 'expr0'.
         // Se recomienda verificar el alias exacto haciendo un System.debug(record) en el batch.

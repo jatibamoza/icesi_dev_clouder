@@ -31,11 +31,17 @@ global class ICS_DataMasterBuilder_bch implements Database.Batchable<SObject>, D
                 dataMasterBuffer.add(dm);
             }
         }
+
+        // Inserta los registros acumulados en el buffer
+        if(!dataMasterBuffer.isEmpty() && dataMasterBuffer.size() >= 2000) {
+            insert dataMasterBuffer;
+            dataMasterBuffer.clear();
+        }
     }
 
     global void finish(Database.BatchableContext BC) {
         // Inserta los registros acumulados en el buffer
-        if (!dataMasterBuffer.isEmpty()) {
+        if(!dataMasterBuffer.isEmpty() ) {
             insert dataMasterBuffer;
         }
     }

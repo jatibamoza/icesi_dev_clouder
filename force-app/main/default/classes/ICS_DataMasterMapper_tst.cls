@@ -69,7 +69,7 @@ private class ICS_DataMasterMapper_tst {
         IndividualApplication testApp = [
             SELECT Id, Owner.Name, Carrera_de_mayor_interes__r.CC_CODIGO_BANNER__c, Carrera_de_mayor_interes__r.Parent.Name, 
                     Carrera_de_mayor_interes__r.Parent.NIT__c, Carrera_de_mayor_interes__r.Parent.Owner.Name, CC_Periodo_academico__r.Name, 
-                    CC_Periodo_academico__r.Codigo_periodo__c 
+                    CC_Periodo_academico__r.Codigo_periodo__c, Status
             FROM IndividualApplication 
             LIMIT 1];
         String rtDevName = 'IA_EtapasEmbudo';

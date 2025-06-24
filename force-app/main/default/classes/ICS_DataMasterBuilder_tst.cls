@@ -66,7 +66,7 @@ private class ICS_DataMasterBuilder_tst {
     @isTest
     static void testBatchExecution() {
         // Construimos el mismo query que usará el batch en producción
-        String query = 'SELECT Owner.Name, Carrera_de_mayor_interes__r.CC_CODIGO_BANNER__c, Carrera_de_mayor_interes__r.Parent.Name, Carrera_de_mayor_interes__r.Parent.NIT__c, Carrera_de_mayor_interes__r.Parent.Owner.Name, CC_Periodo_academico__r.Name, CC_Periodo_academico__r.Codigo_periodo__c FROM IndividualApplication WHERE Status = \'Matriculado\'';
+        String query = 'SELECT Owner.Name, Carrera_de_mayor_interes__r.CC_CODIGO_BANNER__c, Carrera_de_mayor_interes__r.Parent.Name, Carrera_de_mayor_interes__r.Parent.NIT__c, Carrera_de_mayor_interes__r.Parent.Owner.Name, CC_Periodo_academico__r.Name, CC_Periodo_academico__r.Codigo_periodo__c, Status FROM IndividualApplication WHERE Status = \'Matriculado\'';
         String rtDevName = 'IA_EtapasEmbudo';
         Test.startTest();
         // Instanciar y ejecutar el batch

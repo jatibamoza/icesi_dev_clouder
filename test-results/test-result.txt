@@ -1,0 +1,36 @@
+
+
+=== Test Results
+TEST NAME                                                        OUTCOME  MESSAGE  RUNTIME (MS)
+───────────────────────────────────────────────────────────────  ───────  ───────  ────────────
+ICS_DataMasterBuilder_tst.testBatchExecution                     Pass              201         
+ICS_DataMasterBuilder_tst.testScheduler                          Pass              255         
+ICS_DataMasterMapper_tst.testGetNestedValue                      Pass              7           
+ICS_DataMasterMapper_tst.testMappingHappyPath                    Pass              38          
+ICS_DataMasterMapper_tst.testMappingNullPath                     Pass              4           
+ICS_DataMasterMapper_tst.testMappingWithNulls                    Pass              634         
+ICS_DataMasterMapper_tst.testgetRecordTypeId                     Pass              5           
+ICS_BaseException_tst.test_exception_instantiation_and_throwing  Pass              6           
+
+
+=== Test Setup Time by Test Class for Run 707WK00000k3YqF
+TEST SETUP METHOD NAME              SETUP TIME
+──────────────────────────────────  ──────────
+ICS_DataMasterBuilder_tst.makeData  4488      
+ICS_DataMasterMapper_tst.makeData   4403      
+
+
+=== Test Summary
+NAME                 VALUE                                 
+───────────────────  ──────────────────────────────────────
+Outcome              Passed                                
+Tests Ran            10                                    
+Pass Rate            100%                                  
+Fail Rate            0%                                    
+Skip Rate            0%                                    
+Test Run Id          707WK00000k3YqF                       
+Test Setup Time      8891 ms                               
+Test Execution Time  1150 ms                               
+Test Total Time      10041 ms                              
+Org Id               00DWK000000dDxb2AE                    
+Username             icesi@clouderconsulting.com.newsconfig

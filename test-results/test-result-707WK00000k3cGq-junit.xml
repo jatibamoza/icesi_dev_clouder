@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="force.apex" timestamp="2025-06-23T08:35:05.000Z" hostname="https://icesi--newsconfig.sandbox.my.salesforce.com" tests="10" failures="0"  errors="0"  time="1.49">
+        <properties>
+            <property name="outcome" value="Successful"/>
+            <property name="testsRan" value="10"/>
+            <property name="passing" value="10"/>
+            <property name="failing" value="0"/>
+            <property name="skipped" value="0"/>
+            <property name="passRate" value="100%"/>
+            <property name="failRate" value="0%"/>
+            <property name="testStartTime" value="Mon Jun 23 2025 10:35:05"/>
+            <property name="testSetupTimeInMs" value="42040"/>
+            <property name="testExecutionTime" value="1.49 s"/>
+            <property name="testTotalTime" value="43.53 s"/>
+            <property name="commandTime" value="0.25 s"/>
+            <property name="hostname" value="https://icesi--newsconfig.sandbox.my.salesforce.com"/>
+            <property name="orgId" value="00DWK000000dDxb2AE"/>
+            <property name="username" value="icesi@clouderconsulting.com.newsconfig"/>
+            <property name="testRunId" value="707WK00000k3cGq"/>
+            <property name="userId" value="005ao000000UvtiAAC"/>
+        </properties>
+        <testcase name="testBatchExecution" classname="ICS_DataMasterBuilder_tst" time="0.23">
+        </testcase>
+        <testcase name="testScheduler" classname="ICS_DataMasterBuilder_tst" time="0.23">
+        </testcase>
+        <testcase name="testGetNestedValue" classname="ICS_DataMasterMapper_tst" time="0.04">
+        </testcase>
+        <testcase name="testMappingHappyPath" classname="ICS_DataMasterMapper_tst" time="0.09">
+        </testcase>
+        <testcase name="testMappingNullPath" classname="ICS_DataMasterMapper_tst" time="0.01">
+        </testcase>
+        <testcase name="testMappingWithNulls" classname="ICS_DataMasterMapper_tst" time="0.81">
+        </testcase>
+        <testcase name="testgetRecordTypeId" classname="ICS_DataMasterMapper_tst" time="0.02">
+        </testcase>
+        <testcase name="test_exception_instantiation_and_throwing" classname="ICS_BaseException_tst" time="0.05">
+        </testcase>
+    </testsuite>
+</testsuites>

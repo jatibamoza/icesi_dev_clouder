@@ -14,8 +14,6 @@ List<ICS_QueryMaster__mdt> definitions = [
             FROM ICS_QueryMaster__mdt 
             WHERE ICS_IsActive__c = true  ];
 
-System.debug('##definitions: ' + definitions.size());
-
 ICS_DataMasterBuilder_bch batch = new ICS_DataMasterBuilder_bch(definitions[0].ICS_Query__c, definitions[0].ICS_RecordTypeDeveloperName__c);
 Integer scopeSize = 200;
 Database.executeBatch(batch, scopeSize);
