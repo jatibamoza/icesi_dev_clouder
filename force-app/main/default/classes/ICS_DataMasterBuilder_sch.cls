@@ -13,30 +13,9 @@ global class ICS_DataMasterBuilder_sch implements Schedulable{
             WHERE ICS_IsActive__c = true  ];
         
         for( ICS_QueryMaster__mdt def : definitions) {
-            deleteDataMasterRecords(def.ICS_RecordTypeDeveloperName__c);
-            ICS_DataMasterBuilder_bch batch = new ICS_DataMasterBuilder_bch(def.ICS_Query__c, def.ICS_RecordTypeDeveloperName__c);
+            ICS_DataMasterDelete_bch batch = new ICS_DataMasterDelete_bch( def.ICS_Query__c, def.ICS_RecordTypeDeveloperName__c);
             Integer scopeSize = 200;
             Database.executeBatch(batch, scopeSize);
-        }
-    }
-
-    private static void deleteDataMasterRecords(String sDeveloperName) {
-        // Método para eliminar registros de ICS_DataMaster__c
-        List<ICS_DataMaster__c> recordsToDelete = [SELECT Id FROM ICS_DataMaster__c WHERE RecordType.DeveloperName =: sDeveloperName];
-        
-        Integer batchSize = 2000;
-        List<SObject> buffer = new List<SObject>();
-
-        if(!recordsToDelete.isEmpty()) {
-
-            for( Integer i = 0; i < recordsToDelete.size(); i++ ){
-                buffer.add(recordsToDelete[i]);
-
-                if( buffer.size() == batchSize || i == recordsToDelete.size() - 1) {
-                    delete buffer;
-                    buffer.clear();
-                }
-            }
         }
     }
 }

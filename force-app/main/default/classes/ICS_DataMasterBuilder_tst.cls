@@ -82,6 +82,33 @@ private class ICS_DataMasterBuilder_tst {
     @isTest
     static void testScheduler() {
         Test.startTest();
+        createDataMasterRecord();
+        ICS_DataMasterBuilder_sch scheduler = new ICS_DataMasterBuilder_sch();
+        String cronExpression = '0 0 1 * * ?'; // Expresión CRON de ejemplo
+        System.schedule('Test Data Master Builder Schedule', cronExpression, scheduler);
+        Test.stopTest();
+        
+        List<CronTrigger> triggers = [SELECT Id, CronJobDetail.Name FROM CronTrigger WHERE CronJobDetail.Name = 'Test Data Master Builder Schedule'];
+        System.assertEquals(1, triggers.size(), 'El trabajo programado debería existir.');
+        Assert.areEqual(1, triggers.size(), 'El trabajo programado debería existir.');
+    }
+    @isTest
+    static void testDeleteBatchExecution() {
+        createDataMasterRecord();
+        String query = 'SELECT Owner.Name, Carrera_de_mayor_interes__r.CC_CODIGO_BANNER__c, Carrera_de_mayor_interes__r.Parent.Name, Carrera_de_mayor_interes__r.Parent.NIT__c, Carrera_de_mayor_interes__r.Parent.Owner.Name, CC_Periodo_academico__r.Name, CC_Periodo_academico__r.Codigo_periodo__c, Status FROM IndividualApplication WHERE Status = \'Matriculado\'';
+        String rtDevName = 'IA_EtapasEmbudo';
+        Test.startTest();
+        // Instanciar y ejecutar el batch
+        ICS_DataMasterDelete_bch batch = new ICS_DataMasterDelete_bch(query, rtDevName);
+        Database.executeBatch(batch,200);
+        Test.stopTest();
+        // Verificar los resultados
+        // No Debe tener registros en ICS_DataMaster__c con el RecordType IA_EtapasEmbudo
+        List<ICS_DataMaster__c> dataMaster = [SELECT Id FROM ICS_DataMaster__c WHERE RecordType.DeveloperName =: rtDevName];
+        Assert.areEqual(1, dataMaster.size(), 'El batch debería haber creado 1 registro Data Master. Por que en el finish llama al Batch ICS_DataMasterBuilder_bch.');
+    }
+    
+    static void createDataMasterRecord() {
         Id idRecordTypeIAEtapasEmbudo = Schema.SObjectType.ICS_DataMaster__c.getRecordTypeInfosByDeveloperName().get('IA_EtapasEmbudo').getRecordTypeId();
         ICS_DataMaster__c dm = new ICS_DataMaster__c();
         dm.RecordTypeId = idRecordTypeIAEtapasEmbudo;
@@ -94,13 +121,5 @@ private class ICS_DataMasterBuilder_tst {
         dm.ICS_Owner_Name__c = 'Owner.Name';
         dm.ICS_IA_Status__c = 'Status';
         insert dm;
-        ICS_DataMasterBuilder_sch scheduler = new ICS_DataMasterBuilder_sch();
-        String cronExpression = '0 0 1 * * ?'; // Expresión CRON de ejemplo
-        System.schedule('Test Data Master Builder Schedule', cronExpression, scheduler);
-        Test.stopTest();
-        
-        List<CronTrigger> triggers = [SELECT Id, CronJobDetail.Name FROM CronTrigger WHERE CronJobDetail.Name = 'Test Data Master Builder Schedule'];
-        System.assertEquals(1, triggers.size(), 'El trabajo programado debería existir.');
-        Assert.areEqual(1, triggers.size(), 'El trabajo programado debería existir.');
     }
 }

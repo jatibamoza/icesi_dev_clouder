@@ -43,6 +43,7 @@ public class ICS_DataMasterMapper_cls {
         // dm.ICS_Fecha_de_Creacion_Texto__c = (String)record.get('expr0');
         return dm;
     }
+
     @TestVisible
     private static Object getNestedValue(SObject sObj, String fieldPath) {
         if( sObj == null || String.isBlank(fieldPath) ){
@@ -61,6 +62,7 @@ public class ICS_DataMasterMapper_cls {
             throw new ICS_BaseException('Error getting nested value for path: ' + fieldPath + '. Error: ' + e.getMessage());
         }
     }
+
     @TestVisible
     private static Id getRecordTypeId(String devName) {
         if( String.isBlank(devName) ) return null;

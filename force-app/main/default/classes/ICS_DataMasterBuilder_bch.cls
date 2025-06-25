@@ -1,7 +1,7 @@
 /** 
  * @author: jatibamoza
  * @email: javier.tibamoza.cubillos@gmail.com
- * @description: Batch Apex para construir Data_Master__c a partir de ICS_QueryMaster__mdt.
+ * @description: Batch Apex para construir ICS_Data_Master__c a partir de ICS_QueryMaster__mdt.
  * 
 */
 global class ICS_DataMasterBuilder_bch implements Database.Batchable<SObject>, Database.Stateful {
@@ -11,9 +11,7 @@ global class ICS_DataMasterBuilder_bch implements Database.Batchable<SObject>, D
     global List<ICS_DataMaster__c> dataMasterBuffer = new List<ICS_DataMaster__c>();
 
     global ICS_DataMasterBuilder_bch(String sQuery, String sRecordTypeDevName) {
-        //Valida que tenga datos el parametro sQuery
         query = ( sQuery != null) ? sQuery : '';
-        //Valida que tenga datos el parametro sRecordTypeDevName
         recordTypeDevName = ( sRecordTypeDevName != null) ? sRecordTypeDevName : '';
     }
 
@@ -32,7 +30,7 @@ global class ICS_DataMasterBuilder_bch implements Database.Batchable<SObject>, D
             }
         }
 
-        // Inserta los registros acumulados en el buffer
+        // Inserta los registros acumulados en el dataMasterBuffer
         if(!dataMasterBuffer.isEmpty() && dataMasterBuffer.size() >= 2000) {
             insert dataMasterBuffer;
             dataMasterBuffer.clear();
@@ -40,7 +38,7 @@ global class ICS_DataMasterBuilder_bch implements Database.Batchable<SObject>, D
     }
 
     global void finish(Database.BatchableContext BC) {
-        // Inserta los registros acumulados en el buffer
+        // Inserta los registros acumulados en el dataMasterBuffer
         if(!dataMasterBuffer.isEmpty() ) {
             insert dataMasterBuffer;
         }
