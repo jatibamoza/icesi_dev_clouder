@@ -29,8 +29,10 @@ Define la configuración dinámica de extracción y mapeo.
 
 - **Schedulable Apex**: `ICS_DataMasterBuilder_sch`
     - Realiza un query de `ICS_QueryMaster__mdt` y recorre los registros activos.
+    - Ejecuta el batch con el SOQL configurados en `ICS_DataMasterDelete_bch` .
+- **Delete Batch Apex**: `ICS_DataMasterDelete_bch`
     - Elimina la data del objeto `ICS_Data_Master__c` del tipo de registro configurado en `ICS_QueryMaster__mdt`.
-    - Ejecuta el batch con el SOQL configurados en `ICS_QueryMaster__mdt`.
+    - En el finish ejecuta el Batch `ICS_DataMasterBuilder_bch`
 - **Batch Apex**: `ICS_DataMasterBuilder_bch`
     - Ejecuta el SOQL configurado en `DataMergeDefinition__mdt` que ingresa desde la clase `ICS_DataMasterBuilder_sch` como parámetro en el constructor de la clase.
     - Llama a la clase `ICS_DataMasterMapper_cls` en el método execute.
@@ -47,6 +49,7 @@ Define la configuración dinámica de extracción y mapeo.
    - `ICS_QueryMaster__mdt`
    - Clases Apex:
      - `ICS_DataMasterBuilder_sch`
+     - `ICS_DataMasterDelete_bch`
      - `ICS_DataMasterBuilder_bch`
      - `ICS_DataMasterBuilder_tst`
      - `ICS_DataMasterMapper_cls`
@@ -75,7 +78,6 @@ String jobName = 'ICS_DataMasterBuilder_sch';
 ICS_DataMasterBuilder_sch job = new ICS_DataMasterBuilder_sch();
 System.schedule(jobName, cronExp, job);
 ```
-
 
 🧪 Testing
 Ejecuta los test con cobertura:
