@@ -29,13 +29,13 @@ Define la configuración dinámica de extracción y mapeo.
 
 - **Schedulable Apex**: `ICS_DataMasterBuilder_sch`
     - Realiza un query de `ICS_QueryMaster__mdt` y recorre los registros activos.
-    - Ejecuta el batch `ICS_DataMasterDelete_bch`y se por parámetros del contructor se pasa la info de la custom metadata type.
+    - Ejecuta el batch `ICS_DataMasterDelete_bch`y por parámetros del constructor se le pasa la info de la custom metadata type.
 - **Delete Batch Apex**: `ICS_DataMasterDelete_bch`
     - Elimina la data del objeto `ICS_Data_Master__c` del tipo de registro configurado en `ICS_QueryMaster__mdt`.
     - En el finish ejecuta el Batch `ICS_DataMasterBuilder_bch` con los datos de la custom metadata type.
 - **Batch Apex**: `ICS_DataMasterBuilder_bch`
-    - Ejecuta el SOQL configurado en `DataMergeDefinition__mdt` que ingresa desde la clase `ICS_DataMasterBuilder_sch` como parámetro en el constructor de la clase.
-    - Llama a la clase `ICS_DataMasterMapper_cls` en el método execute.
+    - Ejecuta el SOQL configurado en `ICS_QueryMaster__mdt` que ingresa desde la clase `ICS_DataMasterBuilder_sch` como parámetro en el constructor de la clase.
+    - Llama a la clase `ICS_DataMasterMapper_cls` en el método execute, para mapear campos del query con los campos del objeto `ICS_Data_Master__c`.
 - **Helper**: `ICS_DataMasterMapper_cls`
     - Convierte cualquier `SObject` a un registro `ICS_Data_Master__c` mapeando los campos entre el SOQL configurado en la metadata `ICS_QueryMaster__mdt` y el objeto `ICS_Data_Master__c`.
 
